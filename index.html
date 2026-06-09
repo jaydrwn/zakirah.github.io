@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>HydrateMe — e-Portfolio | Zakirah Zulkiflee</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet"/>
+<style>
+  :root {
+    --blue-deep: #0a1628;
+    --blue-mid: #0d2b5e;
+    --blue-bright: #1a6fcf;
+    --blue-light: #4fa3e8;
+    --cyan: #00c9e4;
+    --water: #a8dfff;
+    --white: #f4faff;
+    --glass: rgba(255,255,255,0.07);
+    --glass-border: rgba(255,255,255,0.13);
+    --text-main: #e8f4fd;
+    --text-muted: #7fb3d3;
+    --card-bg: rgba(13,43,94,0.55);
+  }
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body { background: var(--blue-deep); color: var(--text-main); font-family: 'DM Sans', sans-serif; font-weight: 400; line-height: 1.7; overflow-x: hidden; }
+  body::before { content: ''; position: fixed; inset: 0; background: radial-gradient(ellipse 80% 60% at 20% 10%, rgba(26,111,207,0.18) 0%, transparent 60%), radial-gradient(ellipse 60% 50% at 80% 80%, rgba(0,201,228,0.12) 0%, transparent 55%), radial-gradient(ellipse 40% 40% at 50% 50%, rgba(10,22,40,0.9) 0%, transparent 100%); pointer-events: none; z-index: 0; }
+  nav { position: sticky; top: 0; z-index: 100; display: flex; justify-content: space-between; align-items: center; padding: 0 2rem; height: 62px; background: rgba(10,22,40,0.82); backdrop-filter: blur(14px); border-bottom: 1px solid var(--glass-border); }
+  .nav-brand { font-family: 'Playfair Display', serif; font-size: 1.25rem; color: var(--cyan); letter-spacing: 0.02em; text-decoration: none; }
+  .nav-links { display: flex; gap: 0.2rem; list-style: none; }
+  .nav-links a { color: var(--text-muted); text-decoration: none; font-size: 0.82rem; font-weight: 500; letter-spacing: 0.05em; text-transform: uppercase; padding: 0.4rem 0.75rem; border-radius: 20px; transition: all 0.2s; }
+  .nav-links a:hover { color: var(--white); background: var(--glass); }
+  #home { position: relative; z-index: 1; min-height: 100vh; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; padding: 6rem 2rem 4rem; overflow: hidden; }
+  .hero-ripple { position: absolute; border-radius: 50%; border: 1px solid rgba(0,201,228,0.15); animation: ripple 6s ease-out infinite; pointer-events: none; }
+  .hero-ripple:nth-child(1) { width: 300px; height: 300px; animation-delay: 0s; }
+  .hero-ripple:nth-child(2) { width: 500px; height: 500px; animation-delay: 1.5s; }
+  .hero-ripple:nth-child(3) { width: 700px; height: 700px; animation-delay: 3s; }
+  .hero-ripple:nth-child(4) { width: 900px; height: 900px; animation-delay: 4.5s; }
+  @keyframes ripple { 0% { transform: scale(0.8); opacity: 0.6; } 100% { transform: scale(1.2); opacity: 0; } }
+  .hero-tag { font-size: 0.75rem; font-weight: 600; letter-spacing: 0.2em; text-transform: uppercase; color: var(--cyan); background: rgba(0,201,228,0.1); border: 1px solid rgba(0,201,228,0.3); padding: 0.35rem 1rem; border-radius: 20px; margin-bottom: 1.5rem; display: inline-block; animation: fadeUp 0.8s ease both; }
+  .hero-title { font-family: 'Playfair Display', serif; font-size: clamp(2.8rem, 7vw, 5.5rem); font-weight: 900; line-height: 1.08; letter-spacing: -0.02em; margin-bottom: 0.5rem; animation: fadeUp 0.9s ease 0.1s both; }
+  .hero-title span { background: linear-gradient(135deg, var(--cyan), var(--blue-light)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+  .hero-sub { font-size: 1rem; color: var(--text-muted); margin-bottom: 2rem; animation: fadeUp 1s ease 0.2s both; }
+  .hero-intro { max-width: 600px; font-size: 1.05rem; color: var(--text-main); opacity: 0.85; margin-bottom: 2.5rem; animation: fadeUp 1s ease 0.3s both; }
+  .sdg-badge { display: inline-flex; align-items: center; gap: 0.6rem; background: rgba(0,201,228,0.08); border: 1px solid rgba(0,201,228,0.25); border-radius: 12px; padding: 0.7rem 1.4rem; font-size: 0.9rem; color: var(--water); animation: fadeUp 1s ease 0.4s both; }
+  .sdg-badge strong { color: var(--cyan); }
+  @keyframes fadeUp { from { opacity: 0; transform: translateY(24px); } to { opacity: 1; transform: translateY(0); } }
+  section { position: relative; z-index: 1; padding: 5rem 2rem; max-width: 1100px; margin: 0 auto; }
+  .section-label { font-size: 0.72rem; font-weight: 600; letter-spacing: 0.22em; text-transform: uppercase; color: var(--cyan); margin-bottom: 0.6rem; }
+  .section-title { font-family: 'Playfair Display', serif; font-size: clamp(1.8rem, 4vw, 2.8rem); font-weight: 700; margin-bottom: 3rem; line-height: 1.2; }
+  .section-title span { color: var(--cyan); }
+  .grid-2 { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1.5rem; }
+  .card { background: var(--card-bg); border: 1px solid var(--glass-border); border-radius: 20px; padding: 1.6rem; backdrop-filter: blur(10px); transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s; }
+  .card:hover { transform: translateY(-6px); box-shadow: 0 20px 60px rgba(0,201,228,0.1); border-color: rgba(0,201,228,0.3); }
+  .card-number { font-size: 0.7rem; font-weight: 700; letter-spacing: 0.15em; text-transform: uppercase; color: var(--cyan); opacity: 0.7; margin-bottom: 0.4rem; }
+  .card h3 { font-family: 'Playfair Display', serif; font-size: 1.15rem; margin-bottom: 0.5rem; color: var(--white); }
+  .card p { font-size: 0.88rem; color: var(--text-muted); margin-bottom: 1rem; line-height: 1.6; }
+  .video-wrap { position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden; border-radius: 12px; margin-bottom: 1rem; background: rgba(0,0,0,0.3); }
+  .video-wrap iframe { position: absolute; inset: 0; width: 100%; height: 100%; border: none; border-radius: 12px; }
+  .reflection-box { background: rgba(0,201,228,0.05); border-left: 3px solid var(--cyan); border-radius: 0 10px 10px 0; padding: 0.8rem 1rem; font-size: 0.85rem; color: var(--text-muted); font-style: italic; }
+  .project-card { background: var(--card-bg); border: 1px solid var(--glass-border); border-radius: 24px; padding: 2rem; backdrop-filter: blur(10px); margin-bottom: 2rem; transition: transform 0.3s, box-shadow 0.3s, border-color 0.3s; }
+  .project-card:hover { transform: translateY(-5px); box-shadow: 0 24px 70px rgba(26,111,207,0.15); border-color: rgba(0,201,228,0.35); }
+  .project-header { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 1rem; flex-wrap: wrap; gap: 1rem; }
+  .project-badge { font-size: 0.7rem; font-weight: 700; letter-spacing: 0.15em; text-transform: uppercase; color: var(--blue-deep); background: var(--cyan); padding: 0.3rem 0.8rem; border-radius: 20px; }
+  .project-card h3 { font-family: 'Playfair Display', serif; font-size: 1.5rem; color: var(--white); margin-bottom: 0.5rem; }
+  .project-card p { font-size: 0.9rem; color: var(--text-muted); margin-bottom: 1.2rem; }
+  .btn-github { display: inline-flex; align-items: center; gap: 0.5rem; background: rgba(255,255,255,0.07); border: 1px solid var(--glass-border); color: var(--white); text-decoration: none; padding: 0.55rem 1.2rem; border-radius: 10px; font-size: 0.85rem; font-weight: 500; transition: all 0.2s; margin-top: 0.5rem; }
+  .btn-github:hover { background: rgba(0,201,228,0.15); border-color: var(--cyan); color: var(--cyan); }
+  #reflection .reflection-full { max-width: 720px; font-size: 1.05rem; line-height: 1.85; color: var(--text-main); opacity: 0.88; background: var(--card-bg); border: 1px solid var(--glass-border); border-radius: 20px; padding: 2.5rem; backdrop-filter: blur(10px); position: relative; }
+  #reflection .reflection-full::before { content: '"'; position: absolute; top: -0.5rem; left: 1.5rem; font-family: 'Playfair Display', serif; font-size: 6rem; color: var(--cyan); opacity: 0.15; line-height: 1; }
+  .skills-grid { display: flex; flex-wrap: wrap; gap: 0.75rem; }
+  .skill-pill { background: var(--glass); border: 1px solid var(--glass-border); color: var(--water); padding: 0.45rem 1.1rem; border-radius: 30px; font-size: 0.85rem; font-weight: 500; transition: all 0.2s; }
+  .skill-pill:hover { background: rgba(0,201,228,0.12); border-color: var(--cyan); color: var(--cyan); }
+  .resource-list { list-style: none; display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 1rem; }
+  .resource-list li { background: var(--card-bg); border: 1px solid var(--glass-border); border-radius: 14px; padding: 1rem 1.2rem; font-size: 0.88rem; color: var(--text-muted); backdrop-filter: blur(8px); }
+  .resource-list li strong { display: block; color: var(--white); margin-bottom: 0.2rem; }
+  footer { position: relative; z-index: 1; text-align: center; padding: 3rem 2rem; border-top: 1px solid var(--glass-border); color: var(--text-muted); font-size: 0.85rem; }
+  footer strong { color: var(--cyan); }
+  .divider { width: 100%; height: 1px; background: linear-gradient(to right, transparent, var(--glass-border), transparent); margin: 0 auto; }
+  @media (max-width: 700px) { nav { padding: 0 1rem; } .nav-links { gap: 0; } .nav-links a { padding: 0.35rem 0.5rem; font-size: 0.72rem; } section { padding: 3.5rem 1rem; } }
+</style>
+</head>
+<body>
+
+<nav>
+  <a class="nav-brand" href="#home">💧 HydrateMe</a>
+  <ul class="nav-links">
+    <li><a href="#home">Home</a></li>
+    <li><a href="#labs">Labs</a></li>
+    <li><a href="#projects">Projects</a></li>
+    <li><a href="#reflection">Reflection</a></li>
+    <li><a href="#skills">Skills</a></li>
+    <li><a href="#resources">Resources</a></li>
+  </ul>
+</nav>
+
+<section id="home">
+  <div class="hero-ripple"></div>
+  <div class="hero-ripple"></div>
+  <div class="hero-ripple"></div>
+  <div class="hero-ripple"></div>
+  <span class="hero-tag">TK2323 / TM2213 — Mobile Programming</span>
+  <h1 class="hero-title"><span>HydrateMe</span><br/>App Portfolio</h1>
+  <p class="hero-sub">ZAKIRAH BINTI ZULKIFLEE &nbsp;·&nbsp; A209855 &nbsp;·&nbsp; Software Engineering</p>
+  <p class="hero-intro">A mobile application built with Kotlin and Jetpack Compose to help users track their daily water intake, set hydration goals, and stay connected with a community challenge — powered by Room, Firebase Firestore, Retrofit, and live location services.</p>
+  <div class="sdg-badge">💧 <span><strong>SDG 6: Clean Water and Sanitation</strong> — because access to safe water and conscious hydration habits are fundamental to human health and well-being.</span></div>
+</section>
+
+<div class="divider"></div>
+
+<section id="labs">
+  <p class="section-label">Laboratory Work</p>
+  <h2 class="section-title">Labs <span>1 – 5</span></h2>
+  <div class="grid-2">
+
+    <div class="card">
+      <p class="card-number">Lab 01</p>
+      <h3>UI Design with Jetpack Compose</h3>
+      <p>Built foundational UI components using Jetpack Compose — understanding composables, layouts, and the declarative UI paradigm in Android development.</p>
+      <div class="video-wrap">
+        <iframe src="https://www.youtube.com/embed/b6Wji1K5OO4" title="Lab 1 UI" allowfullscreen loading="lazy"></iframe>
+      </div>
+      <div class="reflection-box">This lab introduced me to Jetpack Compose and how it differs from XML-based layouts. I learned how to structure composables and manage state, which formed the backbone of my later projects.</div>
+    </div>
+
+    <div class="card">
+      <p class="card-number">Lab 02</p>
+      <h3>Interaction & State Management</h3>
+      <p>Explored user interaction handling, state hoisting, and event-driven UI updates using remember and mutableStateOf in Compose.</p>
+      <div class="video-wrap">
+        <iframe src="https://www.youtube.com/embed/3nsLoi2djJs" title="Lab 2 Interaction" allowfullscreen loading="lazy"></iframe>
+      </div>
+      <div class="reflection-box">Understanding state management was a turning point — seeing how UI automatically reacts to data changes made me appreciate the reactive model. This directly influenced how I managed hydration state in HydrateMe.</div>
+    </div>
+
+    <div class="card">
+      <p class="card-number">Lab 03</p>
+      <h3>Material Design 3</h3>
+      <p>Applied Material Design 3 components — cards, buttons, typography scales, colour schemes, and theming — to build polished, accessible interfaces.</p>
+      <div class="video-wrap">
+        <iframe src="https://www.youtube.com/embed/kZN2-w2xv1A" title="Lab 3 Material Design" allowfullscreen loading="lazy"></iframe>
+      </div>
+      <div class="reflection-box">Material Design 3 gave my UIs a professional, consistent look. I applied card elevations, colour schemes and typography in HydrateMe to make the app feel cohesive and user-friendly.</div>
+    </div>
+
+    <div class="card">
+      <p class="card-number">Lab 04</p>
+      <h3>Navigation with NavController</h3>
+      <p>Implemented multi-screen navigation using Jetpack Navigation Compose, including a bottom navigation bar, route management, and back stack handling.</p>
+      <div class="video-wrap">
+        <iframe src="https://www.youtube.com/embed/xOfckz25KN4" title="Lab 4 Navigation" allowfullscreen loading="lazy"></iframe>
+      </div>
+      <div class="reflection-box">Navigation Compose simplified multi-screen flow drastically. Building the NavHost and bottom navigation bar in this lab directly translated into the five-tab navigation structure of HydrateMe.</div>
+    </div>
+
+    <div class="card">
+      <p class="card-number">Lab 05</p>
+      <h3>Room Database Persistence</h3>
+      <p>Integrated Room — Android's local SQLite abstraction — to persist data using Entities, DAOs, and a RoomDatabase class with coroutine-based Flow queries.</p>
+      <div class="video-wrap">
+        <iframe src="https://www.youtube.com/embed/wLHrlF7zjl0" title="Lab 5 Room" allowfullscreen loading="lazy"></iframe>
+      </div>
+      <div class="reflection-box">Room was the most challenging lab but the most rewarding. Implementing DAOs, Flows, and schema migrations prepared me to build HydrateMe's water_logs and goal tables with confidence.</div>
+    </div>
+
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<section id="projects">
+  <p class="section-label">Application Projects</p>
+  <h2 class="section-title">Projects <span>1 & 2</span></h2>
+
+  <div class="project-card">
+    <div class="project-header">
+      <div>
+        <span class="project-badge">Project 1</span>
+        <h3 style="margin-top:0.6rem;">HydrateMe — Core Features</h3>
+      </div>
+    </div>
+    <p><strong style="color:var(--white);">Problem Statement:</strong> Many people fail to drink enough water daily due to a lack of reminders and awareness. HydrateMe provides a simple interface to log, track, and visualise daily water intake with goal-setting features.</p>
+    <div class="video-wrap" style="max-width:600px;">
+      <iframe src="https://www.youtube.com/embed/RHyIYM7-8Q0" title="Project 1 VSR" allowfullscreen loading="lazy"></iframe>
+    </div>
+    <div class="reflection-box" style="margin-bottom:1rem;">Project 1 taught me how to connect Navigation, ViewModel, and UI state into a cohesive app. I implemented bottom navigation, a log screen, stats screen, and profile screen — cementing my understanding of clean architecture in Android.</div>
+    <a class="btn-github" href="https://github.com/placeholder/project1" target="_blank" rel="noopener">⭐ View on GitHub</a>
+  </div>
+
+  <div class="project-card">
+    <div class="project-header">
+      <div>
+        <span class="project-badge" style="background:var(--blue-light);">Project 2</span>
+        <h3 style="margin-top:0.6rem;">HydrateMe — Full Stack + Cloud</h3>
+      </div>
+    </div>
+    <p><strong style="color:var(--white);">Problem Statement:</strong> Extending the core app with cloud sync, API integration, and community features — users can now compare their hydration with others, check weather-based hydration advice, and persist all data locally and in the cloud simultaneously.</p>
+    <div class="video-wrap" style="max-width:600px;">
+      <iframe src="https://www.youtube.com/embed/placeholder_p2" title="Project 2 VSR" allowfullscreen loading="lazy"></iframe>
+    </div>
+    <div class="reflection-box" style="margin-bottom:1rem;">Project 2 was the most technically demanding work I have done. Integrating Room, Firebase Firestore, Retrofit weather API, and GPS location simultaneously — while managing state across a ViewModel — gave me real-world mobile development experience. The Community Challenge leaderboard was the most satisfying feature to see working in real-time.</div>
+    <a class="btn-github" href="https://github.com/placeholder/project2" target="_blank" rel="noopener">⭐ View on GitHub</a>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<section id="reflection">
+  <p class="section-label">Learning Journey</p>
+  <h2 class="section-title">My <span>Reflection</span></h2>
+  <div class="reflection-full">
+    Starting from Lab 1 where I barely understood composables, to deploying a fully functional cloud-connected Android application in Project 2, this course has been a transformative journey. Each lab built on the last — UI, interaction, Material Design, navigation, and persistence — forming the complete foundation for HydrateMe. The most significant growth came from learning to connect multiple technologies simultaneously: Room for local persistence, Firebase Firestore for real-time cloud sync, Retrofit for weather data, and GPS sensors for location — all wired through a single ViewModel with clean state management. I now feel confident approaching real-world Android development challenges and understand how thoughtful architecture makes an app maintainable, scalable, and genuinely useful.
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<section id="skills">
+  <p class="section-label">Technologies Used</p>
+  <h2 class="section-title">Skills & <span>Tech Stack</span></h2>
+  <div class="skills-grid">
+    <span class="skill-pill">Kotlin</span>
+    <span class="skill-pill">Jetpack Compose</span>
+    <span class="skill-pill">Room Database</span>
+    <span class="skill-pill">Firebase Firestore</span>
+    <span class="skill-pill">Firebase Analytics</span>
+    <span class="skill-pill">Retrofit</span>
+    <span class="skill-pill">Navigation Compose</span>
+    <span class="skill-pill">ViewModel</span>
+    <span class="skill-pill">StateFlow</span>
+    <span class="skill-pill">Coroutines</span>
+    <span class="skill-pill">Material Design 3</span>
+    <span class="skill-pill">Fused Location API</span>
+    <span class="skill-pill">Open-Meteo API</span>
+    <span class="skill-pill">KSP</span>
+    <span class="skill-pill">Android Studio</span>
+    <span class="skill-pill">GitHub</span>
+    <span class="skill-pill">GitHub Pages</span>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<section id="resources">
+  <p class="section-label">References & Acknowledgements</p>
+  <h2 class="section-title">Resources <span>Used</span></h2>
+  <ul class="resource-list">
+    <li><strong>Open-Meteo Weather API</strong>Free, open-source weather forecast API used for temperature-based hydration advice. https://open-meteo.com</li>
+    <li><strong>Firebase Firestore</strong>Google's cloud NoSQL database used for the real-time community leaderboard. https://firebase.google.com</li>
+    <li><strong>Google Fused Location API</strong>Android location service used to fetch the user's GPS coordinates. https://developers.google.com/location-context</li>
+    <li><strong>Jetpack Room</strong>Android's SQLite abstraction library for local data persistence. https://developer.android.com/jetpack/androidx/releases/room</li>
+    <li><strong>Retrofit 2 by Square</strong>Type-safe HTTP client for Android used to call the weather API. https://square.github.io/retrofit</li>
+    <li><strong>Jetpack Compose</strong>Android's modern declarative UI toolkit. https://developer.android.com/compose</li>
+    <li><strong>Material Design 3</strong>Google's design system applied throughout the app UI. https://m3.material.io</li>
+    <li><strong>AI Assistance</strong>Claude (Anthropic) was used to assist with code debugging, architecture guidance, and generation of this e-Portfolio HTML. All code was reviewed, understood, and adapted by the student.</li>
+  </ul>
+</section>
+
+<footer>
+  <p>
+    <strong>ZAKIRAH BINTI ZULKIFLEE</strong> &nbsp;·&nbsp; A209855 &nbsp;·&nbsp; Software Engineering<br/>
+    Instructor: Dr. Nazatul Aini binti Abd Majid &nbsp;·&nbsp; TK2323 / TM2213 Mobile Programming &nbsp;·&nbsp; 2025
+  </p>
+</footer>
+
+</body>
+</html>
